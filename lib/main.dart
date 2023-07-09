@@ -1,4 +1,7 @@
 import 'package:ecommercapp/view/auth/log_in.dart';
+import 'package:ecommercapp/view/auth/sign_up.dart';
+import 'package:ecommercapp/view/cart.dart';
+import 'package:ecommercapp/view/checkout.dart';
 import 'package:ecommercapp/view/search.dart';
 import 'package:ecommercapp/view/shoe_details.dart';
 import 'package:ecommercapp/view/track_your_package.dart';
@@ -9,7 +12,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: TrackYourPackage(),
+      home: Cart(),
     );
   }
 }

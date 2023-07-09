@@ -81,7 +81,7 @@ class ShoeDetails extends StatelessWidget {
                           width: MediaQuery.of(context).size.width - 20,
                           child: Text(
                             'Creted but taken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taCreted but taken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taCreted but taken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets the ',
-                            style: TextStyle(color: Colors.grey, fontSize: 13),
+                            style: TextStyle(color: Colors.grey, fontSize: 15),
                           ),
                         ),
                         SizedBox(
@@ -100,8 +100,8 @@ class ShoeDetails extends StatelessWidget {
             left: 0,
             bottom: 0,
             child: Container(
-              height: 90,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              height: 120,
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
               color: Colors.white,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +112,7 @@ class ShoeDetails extends StatelessWidget {
                       const Text(
                         'Quantity',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Container(
                         alignment: Alignment.center,
@@ -120,12 +120,12 @@ class ShoeDetails extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.grey[350],
                             borderRadius: BorderRadius.circular(8)),
-                        width: 50,
+                        width: 70,
                         height: 32,
-                        child: Row(
+                        child:const Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children:  [
                             Text(
                               '-',
                               style: TextStyle(
