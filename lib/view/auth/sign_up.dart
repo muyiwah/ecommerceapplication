@@ -1,5 +1,6 @@
 
 
+import 'package:ecommercapp/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -35,9 +36,11 @@ void showSnack(context,text){ ScaffoldMessenger.of(context).showSnackBar
 
   final _signUpformKey = GlobalKey<FormState>();
   
-
-
-
+UserController userController =UserController();
+Future registerUser()async{
+ var res= await userController.register(onSuccess, _fullnameController.text, _passwordController.text, _emailController.text, context);
+print(res);}
+void onSuccess(){}
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size.width;
@@ -156,9 +159,9 @@ void showSnack(context,text){ ScaffoldMessenger.of(context).showSnackBar
                             _confirmPasswordController.text) {
                      
   showSnack(context,"make sure your passwords are thesame");
-                          } else if (_passwordController.text.length >4) {
-  showSnack(context,"incorrect password");
-                       // signUp();
+                          } else if (_passwordController.text.length <3) {
+  showSnack(context," password too short");
+                     registerUser();
                         } }),
                       child:
                         const  Text('Next', style: TextStyle(color: Colors.white))),

@@ -13,24 +13,21 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
-
+//connect to mongoDB
 mongoose
-  .connect('mongodb://localhost:27017/test', {   
+  .connect(process.env.DB, {   
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true, 
   })
   .then((response) =>
     success({ message: 'Database connected successfully', badge: true }),
   )
   .catch((err) => error({ message: 'Database connection failed', badge: true }))
-
 // api routes
 app.use('/api/', route)   
   
 // create server
-port = 7000
+port = 6000
    
 app.listen(port, () => { 
   success({ message: `server started on port ${port}`, badge: true })  
