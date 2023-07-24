@@ -3,19 +3,21 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const {success, error} = require ('consola')
 const bodyParser = require('body-parser')
-const { route } = require('./route')
+const myRoute = require('./route')
 require('dotenv').config()
 
 const app = express()
-
+ 
 
 //middle wares
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 //connect to mongoDB
+const db = "mongodb+srv://muyiwah457:pass@cluster0.kr7soid.mongodb.net/?retryWrites=true&w=majority";
+
 mongoose
-  .connect(process.env.DB, {   
+  .connect(db, {   
     useNewUrlParser: true,
     useUnifiedTopology: true, 
   })
@@ -24,10 +26,10 @@ mongoose
   )
   .catch((err) => error({ message: 'Database connection failed', badge: true }))
 // api routes
-app.use('/api/', route)   
+app.use('/api/', myRoute)   
   
 // create server
-port = 6000
+port = 6000 
    
 app.listen(port, () => { 
   success({ message: `server started on port ${port}`, badge: true })  

@@ -1,8 +1,19 @@
+import 'package:ecommercapp/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 
-class LogIn extends StatelessWidget {
-  const LogIn({super.key});
+import '../../model/user.dart';
 
+class LogIn extends StatelessWidget {
+   LogIn({super.key});
+TextEditingController _passwordController=TextEditingController();
+TextEditingController _emailController =TextEditingController();
+  UserController _userController=UserController();
+void logUserIn(context)async{print(_passwordController.text);
+_userController.signin(_passwordController.text, _emailController.text, context);
+}
+
+
+void onSucess(){}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +77,7 @@ class LogIn extends StatelessWidget {
                   ]),
                 ),
               ),
-              const TextField(
+               TextField(controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text(
@@ -75,7 +86,7 @@ class LogIn extends StatelessWidget {
                   ),
                 ),
               ),
-              const TextField(
+               TextField(controller: _passwordController,
                 decoration: InputDecoration(
                   suffixIcon: Icon(Icons.remove_red_eye_rounded),
                   border: OutlineInputBorder(),
@@ -94,7 +105,7 @@ class LogIn extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(260, 50),
                 ),
-                onPressed: () {},
+                onPressed: () {logUserIn(context);},
                 child: Text('Log in'),
               )),
              const Row(mainAxisAlignment: MainAxisAlignment.center,

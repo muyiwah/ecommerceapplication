@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const userModel =new mongoose.Schema({name:{type:String},
+const userModel =new mongoose.Schema({
+    name:{type:String},
 email:{type: String,
 unique:true,
 required:true},
@@ -10,4 +11,4 @@ enum:['user','admin']},
 cart:[],
 bought:[]})
 const user =mongoose.model('user',userModel)
-module.exports =user;
+module.exports =user; 

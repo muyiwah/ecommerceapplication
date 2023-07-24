@@ -1,10 +1,13 @@
+import 'package:ecommercapp/model/product.dart';
 import 'package:flutter/material.dart';
 
 class Shoe extends StatelessWidget {
-  const Shoe({super.key});
+Product shoe;
+   Shoe( this.shoe, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    print(shoe.description);
     return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -22,20 +25,20 @@ class Shoe extends StatelessWidget {
                 color: Color.fromARGB(255, 179, 220, 239).withOpacity(.8)),
             height: 100,
             width: 120,
-            child: Image.asset('lib/images/4.jpeg'),
+            // child: Image.asset(shoe.imageUrl),
           ),
-          Text(
-            'Nike Air Force',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          Text(
-            'Series7',
-            style: TextStyle(fontWeight: FontWeight.w300),
-          ),
-          Text(
-            '799',
-            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
-          )
+          // Text(
+          //   shoe.description,
+          //   style: TextStyle(fontWeight: FontWeight.w600),
+          // ),
+          // Text(
+          //   shoe.size,
+          //   style: TextStyle(fontWeight: FontWeight.w300),
+          // ),
+          // Text(
+          //   shoe.price,
+          //   style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
+          // )
         ],
       ),
     );

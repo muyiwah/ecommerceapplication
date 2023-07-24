@@ -41,12 +41,12 @@ class User {
     return result;
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
+  factory User.fromMap(Map<String, dynamic> map) {print(map);
     return User(
       fullName: map['fullName'] ?? '',
       email: map['email'] ?? '',
       password: map['password'] ?? '',
-      id: map['id'] ?? '',
+      id: map['_id'] ?? '',
       // address: map['address'] ?? '',
       role: map['role'] ?? '',
       // cart: map['cart'] != null

@@ -37,9 +37,9 @@ void showSnack(context,text){ ScaffoldMessenger.of(context).showSnackBar
   final _signUpformKey = GlobalKey<FormState>();
   
 UserController userController =UserController();
-Future registerUser()async{
+Future registerUser()async{print('dfd');
  var res= await userController.register(onSuccess, _fullnameController.text, _passwordController.text, _emailController.text, context);
-print(res);}
+}
 void onSuccess(){}
   @override
   Widget build(BuildContext context) {
@@ -155,13 +155,16 @@ void onSuccess(){}
                       onPressed: (() {
                             if (!_signUpformKey.currentState!.validate()) {
                  }
-                     if (_passwordController.text !=
+                  else  if (_passwordController.text !=
                             _confirmPasswordController.text) {
                      
   showSnack(context,"make sure your passwords are thesame");
                           } else if (_passwordController.text.length <3) {
   showSnack(context," password too short");
+                        }
+                        else{
                      registerUser();
+
                         } }),
                       child:
                         const  Text('Next', style: TextStyle(color: Colors.white))),

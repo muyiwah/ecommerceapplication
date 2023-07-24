@@ -1,9 +1,35 @@
+import 'package:ecommercapp/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 
+import '../model/product.dart';
 import '../widget/shoe.dart';
 
-class Search extends StatelessWidget {
+class Search extends StatefulWidget {
   const Search({super.key});
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchAllProducts(context);
+  }
+
+  List<Product> shoes = [];
+  final _userController = UserController();
+
+  Future fetchAllProducts(context) async {
+    shoes = await _userController.getAllProducts(context);
+    print(shoes[0].description);
+    print(shoes.length);
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +98,8 @@ class Search extends StatelessWidget {
               child: TabBarView(children: [
                 Container(
                   height: 500,
-                  child: GridView.builder(
-                      itemCount: 8,
+                  child:shoes.isNotEmpty? GridView.builder(
+                      itemCount: shoes.length,
                       gridDelegate:
                           const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 170,
@@ -85,9 +111,10 @@ class Search extends StatelessWidget {
                         return InkWell(
                             onTap: () {
                               print(index);
-                            },
-                            child: Shoe());
-                      })),
+                            },child: Text(shoes[index].description),
+                            // child: Shoe(shoes[index]),
+                            );
+                      })):Text('loading'),
                 ),
                 Center(child: Text('screen 2')),
                 Center(child: Text('screen 3')),
