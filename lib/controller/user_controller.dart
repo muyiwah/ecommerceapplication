@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ecommercapp/model/user.dart';
 import 'package:ecommercapp/utils.dart';
+import 'package:ecommercapp/view/search.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -9,68 +10,97 @@ import 'package:provider/provider.dart';
 import '../constant.dart';
 import '../model/product.dart';
 import '../providers/user_provider.dart';
+import '../view/cart.dart';
 
-class UserController{
-  Future register( onSuccess, String fullName,String password, String email, BuildContext context)
-  async{
-    print(fullName);
-    print(password);
-    print(email);
-  User user =User(fullName: fullName, email: email, password: password, id: '', role: 'user');  
-    try{
-      http.Response res =   
-    await http.post(Uri.parse('$uri/api/register'),
+class UserController {
+  Future register(onSuccess, String fullName, String password, String email,
+      BuildContext context) async {
+    User user = User(
+        fullName: fullName,
+        email: email,
+        password: password,
+        id: '',
+        role: 'user',
+        cart: []);
+    try {
+      http.Response res = await http.post(Uri.parse('$uri/api/register'),
+          body: user.toJson(),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
 
-    body:user.toJson(),
-
-    headers:<String, String>{'Content-Type': 'application/json; charset=UTF-8'
-});
-
- 
-print(jsonDecode(res.body)['message']);
-    } 
-catch(e){}
-}
-
-
+      print(jsonDecode(res.body)['message']);
+    } catch (e) {}
+  }
 
   void signin(String password, String email, BuildContext context) async {
     try {
-      http.Response res = await http.post(
-          Uri.parse('$uri/api/sign_in'),
+      http.Response res = await http.post(Uri.parse('$uri/api/sign_in'),
           body: jsonEncode({"email": email, "password": password}),
-            headers:<String, String>{'Content-Type': 'application/json; charset=UTF-8'
-}
-          );
-Provider.of<UserProvider>(context, listen: false).setUser(jsonEncode( jsonDecode(res.body)['data']['other']));   
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
+      if (res.statusCode == 200) {
+        print(jsonEncode(jsonDecode(res.body)));
+        Provider.of<UserProvider>(context, listen: false)
+            .setUser(jsonEncode(jsonDecode(res.body)['data']['other']));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: ((context) => Search())));
+      } else if (res.statusCode == 400 || res.statusCode == 401) {
+        showSnackbar(context, 'error logging in');
+      }
     } catch (e) {
       showSnackbar(context, e.toString());
     }
   }
-  
-  
-  
- 
-  Future getAllProducts( BuildContext context) async {
-  List<Product> product=[];
+
+  Future getAllProducts(BuildContext context) async {
+    List<Product> product = [];
     try {
-      http.Response res = await http.get(
-          Uri.parse('$uri/api/list-products'),
-            headers:<String, String>{'Content-Type': 'application/json; charset=UTF-8'
-}
-          );print(jsonDecode(res.body).length);
-      
-                if (res.statusCode==200){  
-                      for (int i = 0; i < jsonDecode(res.body).length; i++) {
-                        print(i);
-              product
-                  .add(Product.fromJson((jsonEncode(jsonDecode(res.body)[i]))));
-                  print(product[i].description);
-Provider.of<UserProvider>(context, listen: false).setUser(jsonEncode( jsonDecode(res.body))); }}
-}
- 
-     catch (e) {
+      http.Response res = await http.get(Uri.parse('$uri/api/list-products'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
+
+      if (res.statusCode == 200) {
+        for (int i = 0; i < jsonDecode(res.body).length; i++) {
+          product.add(Product.fromJson((jsonEncode(jsonDecode(res.body)[i]))));
+        }
+        Provider.of<UserProvider>(context, listen: false).setProduct(
+          jsonEncode(jsonDecode(res.body)),
+        );
+      }
+    } catch (e) {
       showSnackbar(context, e.toString());
-    }return product;
+    }
+    return product;
+  }
+
+  Future addToCart(BuildContext context, productId) async {
+    List<User> user2 = [];
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+
+    try {
+      http.Response res = await http.post(Uri.parse('$uri/api/add-to-cart'),
+          body: jsonEncode({'userEmail': user.email, 'productId': productId}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
+
+      if (res.statusCode == 200) {
+        User userForCart = User.fromJson(res.body);
+        print(userForCart);
+        Provider.of<UserProvider>(context, listen: false)
+            .setUser(jsonEncode(jsonDecode(res.body)));
+        // Provider.of<UserProvider>(context, listen: false).setProduct(
+        //   jsonEncode(jsonDecode(res.body)),
+        // );
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Cart()));
+      }
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+    return user2;
   }
 }

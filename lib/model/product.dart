@@ -6,12 +6,14 @@ class Product {
   final String description;
   final String price;
   final String imageUrl;
+  final String id;
  
   Product({
     required this.size,
     required this.description,
     required this.price,
     required this.imageUrl,
+    required this.id,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,6 +23,7 @@ class Product {
     result.addAll({'description': description});
     result.addAll({'price': price});
     result.addAll({'imageUrl': imageUrl});
+    result.addAll({'_id': id});
   
 
     return result;
@@ -32,6 +35,7 @@ class Product {
       description: map['description'] ?? '',
       price: map['price'] ?? '',
       imageUrl: map['imageUrl'] ?? '',
+      id: map['_id'] ?? '',
     );
   }
 

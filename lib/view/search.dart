@@ -1,4 +1,5 @@
 import 'package:ecommercapp/controller/user_controller.dart';
+import 'package:ecommercapp/view/shoe_details.dart';
 import 'package:flutter/material.dart';
 
 import '../model/product.dart';
@@ -24,8 +25,8 @@ class _SearchState extends State<Search> {
 
   Future fetchAllProducts(context) async {
     shoes = await _userController.getAllProducts(context);
-    print(shoes[0].description);
-    print(shoes.length);
+    // print(shoes[0].description);
+    // print(shoes.length);
     setState(() {
       
     });
@@ -110,11 +111,12 @@ class _SearchState extends State<Search> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                             onTap: () {
-                              print(index);
-                            },child: Text(shoes[index].description),
-                            // child: Shoe(shoes[index]),
+                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => ShoeDetails(shoes[index])));
+                            
+                            },
+                            child: Shoe(shoes[index]),
                             );
-                      })):Text('loading'),
+                      })):const Center(child:  CircularProgressIndicator()),
                 ),
                 Center(child: Text('screen 2')),
                 Center(child: Text('screen 3')),

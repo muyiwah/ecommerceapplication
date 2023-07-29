@@ -25,20 +25,20 @@ Product shoe;
                 color: Color.fromARGB(255, 179, 220, 239).withOpacity(.8)),
             height: 100,
             width: 120,
-            // child: Image.asset(shoe.imageUrl),
+            child: Image.network(shoe.imageUrl),
           ),
-          // Text(
-          //   shoe.description,
-          //   style: TextStyle(fontWeight: FontWeight.w600),
-          // ),
-          // Text(
-          //   shoe.size,
-          //   style: TextStyle(fontWeight: FontWeight.w300),
-          // ),
-          // Text(
-          //   shoe.price,
-          //   style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
-          // )
+          Text(
+            shoe.description.split(' ')[0],
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          Text(
+            shoe.size,
+            style: TextStyle(fontWeight: FontWeight.w300),
+          ),
+          Text(
+            shoe.price,
+            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
+          )
         ],
       ),
     );

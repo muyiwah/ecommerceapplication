@@ -1,10 +1,21 @@
+import 'package:ecommercapp/controller/user_controller.dart';
+import 'package:ecommercapp/model/product.dart';
 import 'package:flutter/material.dart';
 
+import 'cart.dart';
+
 class ShoeDetails extends StatelessWidget {
-  const ShoeDetails({super.key});
+  final Product shoe;
+  ShoeDetails(this.shoe, {super.key});
+  final _controller = UserController();
+  Future addShoeToCart(context) async {
+    await _controller.addToCart(context, shoe.id);
+  }
 
   @override
   Widget build(BuildContext context) {
+    String description =
+        shoe.description.replaceFirst(shoe.description.split(' ')[0], ' ');
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -35,7 +46,7 @@ class ShoeDetails extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(25),
                               bottomRight: Radius.circular(25))),
-                      child: Image.asset('lib/images/4.jpeg'))),
+                      child: Image.network(shoe.imageUrl))),
               Expanded(
                 flex: 1,
                 child: Container(
@@ -48,12 +59,12 @@ class ShoeDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Nike Dunk HIgh Retro',
+                              shoe.description.split(' ')[0],
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                             Text(
-                              'N125.00',
+                              shoe.price,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -80,8 +91,7 @@ class ShoeDetails extends StatelessWidget {
                         Container(
                           width: MediaQuery.of(context).size.width - 20,
                           child: Text(
-                            'Creted but taken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taCreted but taken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taCreted but taken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taken to ttaken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets theCreated for the hordwood but taken to the streets the ',
-                            style: TextStyle(color: Colors.grey, fontSize: 15),
+                            description,
                           ),
                         ),
                         SizedBox(
@@ -122,10 +132,10 @@ class ShoeDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8)),
                         width: 70,
                         height: 32,
-                        child:const Row(
+                        child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:  [
+                          children: [
                             Text(
                               '-',
                               style: TextStyle(
@@ -164,7 +174,9 @@ class ShoeDetails extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(200, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          addShoeToCart(context);
+                        },
                         child: Text('Add to cart'),
                       )
                     ],

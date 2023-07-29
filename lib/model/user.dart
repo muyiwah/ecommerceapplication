@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ecommercapp/model/product.dart';
+
 
 class User {
   final String fullName;
@@ -8,7 +10,7 @@ class User {
   final String id;
   // final String address;
   final String role;
-  // final List<Product>? cart;
+  final List<Product>? cart;
   // final List<Product>? paidProducts;
   User({
     required this.fullName,
@@ -17,7 +19,7 @@ class User {
     required this.id,
     // required this.address,
     required this.role,
-    // required this.cart,
+    required this.cart,
     // required this.paidProducts,
   });
 
@@ -30,9 +32,9 @@ class User {
     result.addAll({'id': id});
     // result.addAll({'address': address});
     result.addAll({'role': role});
-    // if (cart != null) {
-    //   result.addAll({'cart': cart!.map((x) => x?.toMap()).toList()});
-    // }
+    if (cart != null) {
+      result.addAll({'cart': cart!.map((x) => x?.toMap()).toList()});
+    }
     // if (paidProducts != null) {
     //   result.addAll(
     //       {'paidProducts': paidProducts!.map((x) => x?.toMap()).toList()});
@@ -49,9 +51,9 @@ class User {
       id: map['_id'] ?? '',
       // address: map['address'] ?? '',
       role: map['role'] ?? '',
-      // cart: map['cart'] != null
-      //     ? List<Product>.from(map['cart']?.map((x) => Product.fromMap(x)))
-      //     : null,
+      cart: map['cart'] != null
+          ? List<Product>.from(map['cart']?.map((x) => Product.fromMap(x)))
+          : null,
       // paidProducts: map['paidProducts'] != null
       //     ? List<Product>.from(map['paidProducts']?.map((x) => Product.fromMap(x)))
       //     : null,
