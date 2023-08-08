@@ -95,4 +95,23 @@ module.exports.addToCart = async (req, res) => {
   catch (e) {
     res.status(500).json({ message: 'error' })
   }
-} 
+}
+module.exports.addPaidProducts = async (req, res) => {
+  try {
+    const { productId, email } = req.body; console.log(productId);
+    const user = await userModel.findOne({ email: email })
+    if (product.length == 0) return res.status(400).json({ message: "items not found" })
+    for (let x = 0; productId.length > x; x++) {
+      const shoe = await product.findById({ _id: productId[x] })
+      user.bought.push(shoe);
+      if (x == productId.length - 1) break;
+    }
+    const savedUser = await user.save(); console.log(savedUser);
+    return res.status(200).json(savedUser)
+
+  }
+  catch (e) {
+    res.status(500).json({ message: 'error' })
+
+  }
+}

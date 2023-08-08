@@ -8,10 +8,11 @@ class MakePayment {
     required this.ctx,
     required this.price,
     required this.email,
+    required this.id,
   });
 
   BuildContext ctx;
-
+  List<String> id;
   int price;
 
   String email;
@@ -37,11 +38,10 @@ class MakePayment {
     return PaymentCard(number: "", cvc: "", expiryMonth: 0, expiryYear: 0);
   }
 
-  Future addBoughtShoeToDb(
-    context,
-    // courseId,
-  ) async {
-    // Navigator.pop(ctx);
+  Future addBoughtShoeToDb(context, id
+      // courseId,
+      ) async {
+    controller.saveBoughtItemsToDb(context, id);
   }
 
   void onSuccess() {}
@@ -49,8 +49,10 @@ class MakePayment {
     Navigator.pop(ctx);
   }
 
+  final controller = UserController();
   Future initializePlugin() async {
-    await paystack.initialize(publicKey: 'process.env.db');
+    await paystack.initialize(
+        publicKey: 'pk_test_c2f962757fb28ba7861dd4d3b28abcf8b16001b1');
   }
 
   //Method Charging card
@@ -77,7 +79,7 @@ class MakePayment {
       if (response.status == true) {
         print("Transaction successful");
 
-        addBoughtShoeToDb(ctx);
+        addBoughtShoeToDb(ctx, id);
       } else {
         print("Transaction failed");
       }

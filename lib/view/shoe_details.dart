@@ -20,9 +20,13 @@ class ShoeDetails extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         actions: [
-          custom_icon(
-            color: Colors.white,
-            image: 'lib/images/shopping-cart.png',
+          InkWell(
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Cart())),
+            child: custom_icon(
+              color: Colors.white,
+              image: 'lib/images/shopping-cart.png',
+            ),
           ),
           SizedBox(
             width: 5,

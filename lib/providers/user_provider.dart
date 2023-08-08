@@ -22,8 +22,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Product product =
-      Product(size: '', description: '', price: '', imageUrl: '', id: '');
+  Product product = Product(
+      size: '', description: '', price: '', imageUrl: '', id: "", track: "");
   final List<Product> _shoes = [];
   List<Product> get shoeList => _shoes;
   void setProduct(String data) {

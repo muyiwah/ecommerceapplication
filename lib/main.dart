@@ -1,8 +1,10 @@
 import 'package:ecommercapp/providers/user_provider.dart';
 import 'package:ecommercapp/view/auth/log_in.dart';
 import 'package:ecommercapp/view/auth/sign_up.dart';
+import 'package:ecommercapp/view/bought_products.dart';
 import 'package:ecommercapp/view/cart.dart';
 import 'package:ecommercapp/view/checkout.dart';
+import 'package:ecommercapp/view/nav_screen.dart';
 import 'package:ecommercapp/view/search.dart';
 import 'package:ecommercapp/view/shoe_details.dart';
 import 'package:ecommercapp/view/track_your_package.dart';
@@ -10,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(providers:[ChangeNotifierProvider(create:(context)=>UserProvider())],
-   child: MyApp()));
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

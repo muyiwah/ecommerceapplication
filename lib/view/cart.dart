@@ -14,9 +14,11 @@ class Cart extends StatelessWidget {
     final user = Provider.of<UserProvider>(context, listen: false).user;
     double amount = 0;
     int paystactAmount;
+    List<String> ids = [];
     print(user.cart!.length);
     for (int x = 0; user.cart!.length > x; x++) {
       amount = double.parse(user.cart![x].price) + amount;
+      ids.add(user.cart![x].id);
       paystactAmount = amount.toInt();
     }
     return SafeArea(
@@ -54,7 +56,7 @@ class Cart extends StatelessWidget {
             child: Container(
               width: double.infinity,
               height: 120,
-              color: Colors.blueAccent.withOpacity(.3),
+              color: Colors.blueAccent,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -78,6 +80,7 @@ class Cart extends StatelessWidget {
                       ),
                       onPressed: () {
                         MakePayment(
+                                id: ids,
                                 ctx: context,
                                 price: amount.toInt(),
                                 email: user.email)

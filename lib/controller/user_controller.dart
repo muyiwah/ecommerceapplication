@@ -11,6 +11,7 @@ import '../constant.dart';
 import '../model/product.dart';
 import '../providers/user_provider.dart';
 import '../view/cart.dart';
+import '../view/nav_screen.dart';
 
 class UserController {
   Future register(onSuccess, String fullName, String password, String email,
@@ -44,8 +45,9 @@ class UserController {
         print(jsonEncode(jsonDecode(res.body)));
         Provider.of<UserProvider>(context, listen: false)
             .setUser(jsonEncode(jsonDecode(res.body)['data']['other']));
+        print('kkkkkkkkkkkkkkkkkk');
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: ((context) => Search())));
+            .push(MaterialPageRoute(builder: ((context) => NavScreen())));
       } else if (res.statusCode == 400 || res.statusCode == 401) {
         showSnackbar(context, 'error logging in');
       }
@@ -102,5 +104,29 @@ class UserController {
       showSnackbar(context, e.toString());
     }
     return user2;
+  }
+
+  void saveBoughtItemsToDb(BuildContext context, List productIds) async {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    try {
+      http.Response res = await http.post(
+          Uri.parse('$uri/api/add-paid-products'),
+          body: jsonEncode({'email': user.email, 'productId': productIds}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
+
+      if (res.statusCode == 200) {
+        Provider.of<UserProvider>(context, listen: false)
+            .setUser(jsonEncode(jsonDecode(res.body)));
+        // Provider.of<UserProvider>(context, listen: false).setProduct(
+        //   jsonEncode(jsonDecode(res.body)),
+        // );
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Search()));
+      }
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
   }
 }
