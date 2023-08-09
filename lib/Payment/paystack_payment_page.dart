@@ -51,8 +51,7 @@ class MakePayment {
 
   final controller = UserController();
   Future initializePlugin() async {
-    await paystack.initialize(
-        publicKey: 'pk_test_c2f962757fb28ba7861dd4d3b28abcf8b16001b1');
+    await paystack.initialize(publicKey: '');
   }
 
   //Method Charging card
