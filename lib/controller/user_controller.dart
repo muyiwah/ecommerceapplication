@@ -22,7 +22,8 @@ class UserController {
         password: password,
         id: '',
         role: 'user',
-        cart: []);
+        cart: [],
+        bought: []);
     try {
       http.Response res = await http.post(Uri.parse('$uri/api/register'),
           body: user.toJson(),
@@ -123,7 +124,7 @@ class UserController {
         //   jsonEncode(jsonDecode(res.body)),
         // );
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Search()));
+            .push(MaterialPageRoute(builder: (context) => NavScreen()));
       }
     } catch (e) {
       showSnackbar(context, e.toString());

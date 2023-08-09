@@ -1,18 +1,20 @@
+import 'package:ecommercapp/model/product.dart';
 import 'package:ecommercapp/view/shoe_details.dart';
 import 'package:flutter/material.dart';
 
 class TrackYourPackage extends StatefulWidget {
-  TrackYourPackage({super.key});
-
+  TrackYourPackage(this.product, {super.key});
+  Product product;
   @override
   State<TrackYourPackage> createState() => _TrackYourPackageState();
 }
 
 class _TrackYourPackageState extends State<TrackYourPackage> {
-  int stepLevel = 1;
+  int stepLevel = 0;
 
   @override
   Widget build(BuildContext context) {
+    stepLevel = int.parse(widget.product.track);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -41,7 +43,7 @@ class _TrackYourPackageState extends State<TrackYourPackage> {
                   Container(
                       height: 200,
                       width: 200,
-                      child: Image.asset('lib/images/1.jpeg')),
+                      child: Image.network(widget.product.imageUrl)),
                   const SizedBox(
                     width: 9,
                   ),
@@ -49,7 +51,7 @@ class _TrackYourPackageState extends State<TrackYourPackage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        ' NIke',
+                        widget.product.description.split(' ')[0],
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
@@ -57,7 +59,7 @@ class _TrackYourPackageState extends State<TrackYourPackage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'N9000',
+                            widget.product.price,
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.blue,
@@ -148,6 +150,7 @@ class _TrackYourPackageState extends State<TrackYourPackage> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                     Stepper(
+                        type: StepperType.horizontal,
                         onStepTapped: (value) {
                           setState(() {
                             stepLevel = value;

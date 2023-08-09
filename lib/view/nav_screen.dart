@@ -15,7 +15,7 @@ class _NavScreenState extends State<NavScreen> {
   List<Widget> screens = [
     Search(),
     BoughtProducts(),
-    TrackYourPackage(),
+    Text('hi'),
     Text(
       '4',
       style: TextStyle(color: Colors.red),

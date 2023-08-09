@@ -106,6 +106,7 @@ module.exports.addPaidProducts = async (req, res) => {
       user.bought.push(shoe);
       if (x == productId.length - 1) break;
     }
+    user.cart = [];
     const savedUser = await user.save(); console.log(savedUser);
     return res.status(200).json(savedUser)
 

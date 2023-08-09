@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:ecommercapp/model/product.dart';
 
-
 class User {
   final String fullName;
   final String email;
@@ -11,7 +10,7 @@ class User {
   // final String address;
   final String role;
   final List<Product>? cart;
-  // final List<Product>? paidProducts;
+  final List<Product>? bought;
   User({
     required this.fullName,
     required this.email,
@@ -20,7 +19,7 @@ class User {
     // required this.address,
     required this.role,
     required this.cart,
-    // required this.paidProducts,
+    required this.bought,
   });
 
   Map<String, dynamic> toMap() {
@@ -35,15 +34,15 @@ class User {
     if (cart != null) {
       result.addAll({'cart': cart!.map((x) => x?.toMap()).toList()});
     }
-    // if (paidProducts != null) {
-    //   result.addAll(
-    //       {'paidProducts': paidProducts!.map((x) => x?.toMap()).toList()});
-    // }
+    if (bought != null) {
+      result.addAll({'bought': bought!.map((x) => x?.toMap()).toList()});
+    }
 
     return result;
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {print(map);
+  factory User.fromMap(Map<String, dynamic> map) {
+    print(map);
     return User(
       fullName: map['fullName'] ?? '',
       email: map['email'] ?? '',
@@ -54,9 +53,9 @@ class User {
       cart: map['cart'] != null
           ? List<Product>.from(map['cart']?.map((x) => Product.fromMap(x)))
           : null,
-      // paidProducts: map['paidProducts'] != null
-      //     ? List<Product>.from(map['paidProducts']?.map((x) => Product.fromMap(x)))
-      //     : null,
+      bought: map['bought'] != null
+          ? List<Product>.from(map['bought']?.map((x) => Product.fromMap(x)))
+          : null,
     );
   }
 

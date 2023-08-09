@@ -7,13 +7,13 @@ import '../model/product.dart';
 
 class UserProvider extends ChangeNotifier {
   User _user = User(
-    fullName: '',
-    email: '',
-    password: '',
-    id: '',
-    role: 'user',
-    cart: [],
-  );
+      fullName: '',
+      email: '',
+      password: '',
+      id: '',
+      role: 'user',
+      cart: [],
+      bought: []);
 
   User get user => _user;
   void setUser(String data) {
